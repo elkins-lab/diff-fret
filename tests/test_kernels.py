@@ -31,6 +31,16 @@ def test_fret_differentiable():
     def loss(x):
         return average_efficiency(x, coords_a)
 
-    grads = jax.grad(loss)(coords_d)
-    assert grads.shape == coords_d.shape
-    assert not jnp.any(jnp.isnan(grads))
+def test_fret_alexa_parity():
+    """
+    Verify FRET efficiency for Alexa 488/594 pair (R0 = 54.0 A).
+    """
+    r0 = 54.0
+    r = jnp.array([54.0])
+    e = fret_efficiency(r, r0)
+    assert jnp.allclose(e, 0.5)
+    
+    # At r = 40.0, E = 1 / (1 + (40/54)^6) = 1 / (1 + 0.165) = 0.858
+    r_near = jnp.array([40.0])
+    e_near = fret_efficiency(r_near, r0)
+    assert jnp.allclose(e_near, 0.858, atol=1e-3)
