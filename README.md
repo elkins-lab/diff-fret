@@ -22,7 +22,7 @@
 
 Experience **diff-fret** directly in your browser:
 
-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elkins/diff-fret/blob/main/examples/fret_efficiency_tutorial.ipynb) **FRET Efficiency & Accessible Volumes** — Learn how to simulate Förster curves and perform AV simulations for flexible dyes.
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elkins/diff-fret/blob/main/examples/interactive_tutorials/fret_efficiency_tutorial.ipynb) **FRET Efficiency & Accessible Volumes** — Learn how to simulate Förster curves and perform AV simulations for flexible dyes.
 
 ---
 
