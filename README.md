@@ -1,6 +1,6 @@
 # 📏 diff-fret: Differentiable FRET Modeling in JAX
 
-[![Tests](https://github.com/elkins/diff-fret/actions/workflows/test.yml/badge.svg)](https://github.com/elkins/diff-fret/actions/workflows/test.yml)
+[![Tests](https://github.com/elkins-lab/diff-fret/actions/workflows/test.yml/badge.svg)](https://github.com/elkins-lab/diff-fret/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JAX](https://img.shields.io/badge/backend-JAX-9cf.svg)](https://github.com/google/jax)
 
@@ -22,7 +22,7 @@
 
 Experience **diff-fret** directly in your browser:
 
-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elkins/diff-fret/blob/main/examples/interactive_tutorials/fret_efficiency_tutorial.ipynb) **FRET Efficiency & Accessible Volumes** — Learn how to simulate Förster curves and perform AV simulations for flexible dyes.
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elkins-lab/diff-fret/blob/main/examples/interactive_tutorials/fret_efficiency_tutorial.ipynb) **FRET Efficiency & Accessible Volumes** — Learn how to simulate Förster curves and perform AV simulations for flexible dyes.
 
 ---
 
@@ -61,10 +61,10 @@ pip install diff-fret
 
 diff-fret is part of the **differentiable biophysics** ecosystem:
 
-- [diff-biophys](https://github.com/elkins/diff-biophys) — Core differentiable biophysics engine.
-- [diff-hdx](https://github.com/elkins/diff-hdx) — Differentiable HDX-MS prediction.
-- [diff-epr](https://github.com/elkins/diff-epr) — Differentiable EPR/DEER simulation.
-- [synth-dynamics](https://github.com/elkins/synth-dynamics) — Protein dynamics simulation.
+- [diff-biophys](https://github.com/elkins-lab/diff-biophys) — Core differentiable biophysics engine.
+- [diff-hdx](https://github.com/elkins-lab/diff-hdx) — Differentiable HDX-MS prediction.
+- [diff-epr](https://github.com/elkins-lab/diff-epr) — Differentiable EPR/DEER simulation.
+- [synth-dynamics](https://github.com/elkins-lab/synth-dynamics) — Protein dynamics simulation.
 
 ---
 
@@ -75,8 +75,8 @@ diff-fret is part of the **differentiable biophysics** ecosystem:
   author  = {Elkins, George},
   title   = {diff-fret: Differentiable FRET modeling in JAX},
   year    = {2026},
-  url     = {https://github.com/elkins/diff-fret},
-  version = {0.1.0}
+  url     = {https://github.com/elkins-lab/diff-fret},
+  version = {0.1.1}
 }
 ```
 

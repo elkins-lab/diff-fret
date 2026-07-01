@@ -1,3 +1,5 @@
+import typing
+
 import jax
 import jax.numpy as jnp
 
@@ -33,8 +35,8 @@ def test_fret_differentiable() -> None:
     coords_d = jnp.array([[0.0, 0.0, 0.0]])
     coords_a = jnp.array([[50.0, 0.0, 0.0]])
 
-    def loss(x: jnp.ndarray) -> jnp.ndarray:
-        return average_efficiency(x, coords_a)
+    def loss(x: jnp.ndarray) -> typing.Any:
+        return average_efficiency(x, coords_a)  # type: ignore[no-any-return]
 
     grads = jax.grad(loss)(coords_d)
     assert grads.shape == coords_d.shape
@@ -97,11 +99,11 @@ def test_fret_av_unbiased_estimator() -> None:
     eff_small = fret_efficiency_av(
         pos_d,
         pos_a,
+        jax.random.PRNGKey(1),
         radius_donor=0.01,
         radius_acceptor=0.01,
         n_samples=500,
         r0=r0,
-        key=jax.random.PRNGKey(1),
     )
     assert jnp.allclose(eff_small, 0.5, atol=0.02), (
         f"AV with tiny radius should equal point efficiency 0.5, got {eff_small:.4f}"
@@ -123,8 +125,8 @@ def test_fret_av_nsample_invariance() -> None:
     pos_d = jnp.array([0.0, 0.0, 0.0])
     pos_a = jnp.array([50.0, 0.0, 0.0])
 
-    eff_50 = fret_efficiency_av(pos_d, pos_a, n_samples=50, key=jax.random.PRNGKey(7))
-    eff_500 = fret_efficiency_av(pos_d, pos_a, n_samples=500, key=jax.random.PRNGKey(7))
+    eff_50 = fret_efficiency_av(pos_d, pos_a, jax.random.PRNGKey(7), n_samples=50)
+    eff_500 = fret_efficiency_av(pos_d, pos_a, jax.random.PRNGKey(7), n_samples=500)
 
     assert jnp.allclose(eff_50, eff_500, atol=0.05), (
         f"AV estimate should be stable w.r.t. n_samples: {eff_50:.4f} vs {eff_500:.4f}"
@@ -145,10 +147,10 @@ def test_fret_av_large_cloud_lower_efficiency() -> None:
     key = jax.random.PRNGKey(42)
 
     eff_small = fret_efficiency_av(
-        pos_d, pos_a, radius_donor=1.0, radius_acceptor=1.0, n_samples=2000, r0=50.0, key=key
+        pos_d, pos_a, key, radius_donor=1.0, radius_acceptor=1.0, n_samples=2000, r0=50.0
     )
     eff_large = fret_efficiency_av(
-        pos_d, pos_a, radius_donor=15.0, radius_acceptor=15.0, n_samples=2000, r0=50.0, key=key
+        pos_d, pos_a, key, radius_donor=15.0, radius_acceptor=15.0, n_samples=2000, r0=50.0
     )
     # At r = R0, efficiency is concave → wider cloud lowers mean efficiency
     assert eff_large < eff_small, (

@@ -1,5 +1,5 @@
 site_name: diff-fret
-site_url: https://elkins.github.io/diff-fret/
+site_url: https://elkins-lab.github.io/diff-fret/
 site_description: Differentiable FRET modeling in JAX
 site_author: George Elkins
 

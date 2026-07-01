@@ -1,11 +1,12 @@
 import jax
 import jax.numpy as jnp
+from jaxtyping import Array, Float
 
 
 def distance_distribution(
-    donor_coords: jnp.ndarray,
-    acceptor_coords: jnp.ndarray,
-) -> jnp.ndarray:
+    donor_coords: Float[Array, "*batch 3"],
+    acceptor_coords: Float[Array, "*batch 3"],
+) -> Float[Array, "*batch"]:
     """
     Compute donor-acceptor distances.
 
@@ -23,9 +24,9 @@ def distance_distribution(
 
 
 def fret_efficiency(
-    r: jnp.ndarray,
+    r: Float[Array, "*batch"],
     r0: float = 50.0,
-) -> jnp.ndarray:
+) -> Float[Array, "*batch"]:
     """
     Compute FRET efficiency using Förster theory.
 
@@ -40,10 +41,10 @@ def fret_efficiency(
 
 
 def average_efficiency(
-    coords_donor: jnp.ndarray,
-    coords_acceptor: jnp.ndarray,
+    coords_donor: Float[Array, "M 3"],
+    coords_acceptor: Float[Array, "M 3"],
     r0: float = 50.0,
-) -> jnp.ndarray:
+) -> Float[Array, ""]:
     """
     Compute ensemble-averaged FRET efficiency.
 
@@ -61,14 +62,14 @@ def average_efficiency(
 
 
 def fret_efficiency_av(
-    attachment_donor: jnp.ndarray,
-    attachment_acceptor: jnp.ndarray,
+    attachment_donor: Float[Array, "3"],
+    attachment_acceptor: Float[Array, "3"],
+    key: jax.Array,
     radius_donor: float = 10.0,
     radius_acceptor: float = 10.0,
     n_samples: int = 50,
     r0: float = 50.0,
-    key: jax.Array | None = None,
-) -> jnp.ndarray:
+) -> Float[Array, ""]:
     """
     Differentiable Accessible Volume (AV) simulation for FRET.
     Models the dye as a Gaussian spatial distribution around its attachment point.
@@ -76,18 +77,15 @@ def fret_efficiency_av(
     Args:
         attachment_donor: (3,) attachment point for donor.
         attachment_acceptor: (3,) attachment point for acceptor.
+        key: JAX PRNG key.
         radius_donor: Characteristic radius (standard deviation) of donor dye distribution.
         radius_acceptor: Characteristic radius (standard deviation) of acceptor dye distribution.
         n_samples: Number of samples to use for the Monte Carlo integration.
         r0: Förster distance.
-        key: JAX PRNG key.
 
     Returns:
         Averaged efficiency <E> over the accessible volumes.
     """
-    if key is None:
-        key = jax.random.PRNGKey(0)
-
     key_d, key_a = jax.random.split(key)
 
     # Sample dye positions from Gaussian clouds
@@ -113,7 +111,7 @@ def fret_efficiency_av(
 def kappa_squared_bounds(
     anisotropy_donor: float,
     anisotropy_acceptor: float,
-) -> jnp.ndarray:
+) -> Float[Array, "2"]:
     """
     Calculate the bounds of the orientation factor kappa^2 based on
     Dale-Eisinger-Blumberg (1979) theory.
