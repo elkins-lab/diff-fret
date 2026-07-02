@@ -11,11 +11,11 @@ def distance_distribution(
     Compute donor-acceptor distances.
 
     Args:
-        donor_coords: (N, 3) or (3,) coordinates of donor(s).
-        acceptor_coords: (N, 3) or (3,) coordinates of acceptor(s).
+        donor_coords: (*batch, 3) coordinates of donor(s).
+        acceptor_coords: (*batch, 3) coordinates of acceptor(s).
 
     Returns:
-        Distances (N,).
+        Distances (*batch,).
     """
     dist_sq = jnp.sum((donor_coords - acceptor_coords) ** 2, axis=-1)
     # Safe distance for gradients (avoids NaN at dist=0)
@@ -78,10 +78,10 @@ def fret_efficiency_av(
         attachment_donor: (3,) attachment point for donor.
         attachment_acceptor: (3,) attachment point for acceptor.
         key: JAX PRNG key.
-        radius_donor: Characteristic radius (standard deviation) of donor dye distribution.
-        radius_acceptor: Characteristic radius (standard deviation) of acceptor dye distribution.
-        n_samples: Number of samples to use for the Monte Carlo integration.
-        r0: Förster distance.
+        radius_donor: Characteristic radius (standard deviation) of donor dye distribution (default 10.0).
+        radius_acceptor: Characteristic radius (standard deviation) of acceptor dye distribution (default 10.0).
+        n_samples: Number of samples to use for the Monte Carlo integration (default 50).
+        r0: Förster distance in Angstroms (default 50.0).
 
     Returns:
         Averaged efficiency <E> over the accessible volumes.

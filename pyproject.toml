@@ -26,6 +26,7 @@ dependencies = [
     "jaxlib",
     "numpy",
     "biotite",
+    "jaxtyping>=0.2.28",
 ]
 
 [project.urls]
