@@ -76,7 +76,7 @@ diff-fret is part of the **differentiable biophysics** ecosystem:
   title   = {diff-fret: Differentiable FRET modeling in JAX},
   year    = {2026},
   url     = {https://github.com/elkins-lab/diff-fret},
-  version = {0.1.1}
+  version = {0.1.2}
 }
 ```
 
